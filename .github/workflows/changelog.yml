@@ -3,14 +3,14 @@ on:
       branches:
         - main
 
-  permissions:
+permissions:
     contents: write
     issues: write
     pull-requests: write
 
-  name: release-please
+name: release-please
 
-  jobs:
+jobs:
     release-please:
       runs-on: ubuntu-latest
       steps:

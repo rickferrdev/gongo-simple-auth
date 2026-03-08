@@ -2,7 +2,6 @@ package auth
 
 import (
 	"context"
-	"errors"
 	"net/http"
 	"time"
 
@@ -44,40 +43,6 @@ func NewAuthHandler(router *gin.RouterGroup, service AuthService) AuthHandler {
 	router.POST("/register", auth.Register)
 
 	return auth
-}
-
-// ErrUnauthorized       = errors.New("unauthorized")
-// ErrUserNotFound       = errors.New("user not found")
-// ErrUserAlreadyExists  = errors.New("user already exists")
-// ErrInvalidCredentials = errors.New("invalid credentials")
-
-// ErrTokenExpired   = errors.New("token has expired")
-// ErrTokenInvalid   = errors.New("token is invalid")
-// ErrTokenMalformed = errors.New("token format is incorrect")
-
-// ErrInternal = errors.New("internal server error")
-// ErrTimeout  = errors.New("operation timed out")
-// ErrDatabase = errors.New("database provider error")
-
-func (u *AuthHandler) capture(c *gin.Context, err error) {
-	switch {
-	case errors.Is(err, domain.ErrUnauthorized):
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": domain.ErrUnauthorized.Error()})
-	case errors.Is(err, domain.ErrUserNotFound):
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": ErrUserNotFound.Error()})
-	case errors.Is(err, domain.ErrUserAlreadyExists):
-		c.AbortWithStatusJSON(http.StatusConflict, gin.H{"error": domain.ErrUserAlreadyExists.Error()})
-	case errors.Is(err, domain.ErrInvalidCredentials):
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": domain.ErrInvalidCredentials.Error()})
-	case errors.Is(err, domain.ErrTimeout):
-		c.AbortWithStatusJSON(http.StatusGatewayTimeout, gin.H{"error": domain.ErrTimeout.Error()})
-	case errors.Is(err, domain.ErrTokenMalformed):
-	case errors.Is(err, domain.ErrTokenInvalid):
-	case errors.Is(err, domain.ErrTokenExpired):
-		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"error": domain.ErrTokenInvalid.Error()})
-	default:
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": domain.ErrInternal.Error()})
-	}
 }
 
 func (u *AuthHandler) Register(c *gin.Context) {
