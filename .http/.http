@@ -1,0 +1,22 @@
+###
+POST http://localhost:8080/api/v1/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "rickferr.nyx@gmail.com",
+    "username": "rickferr",
+    "password": "supersecure"
+}
+
+###
+POST http://localhost:8080/api/v1/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "rickferr.nyx@gmail.com",
+    "password": "supersecur"
+}
+
+###
+GET http://localhost:8080/api/v1/users/me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IpXVCJ9.eyJpc3MiOiJyaWNrZmVycmRldi9nb25nby1zaW1wbGUtYXV0aCIsInN1YiI6IjY5YWM5ZjRkMDFkNzJhMjYyZTA0ZDJkZSIsImV4cCI6MTc3MzAyMzcwMCwiaWF0IjoxNzcyOTM3MzAwfQ.jAaklmAdPAIOEVjknv_A092p2WFsGqRfysz_-rU_vlQ
